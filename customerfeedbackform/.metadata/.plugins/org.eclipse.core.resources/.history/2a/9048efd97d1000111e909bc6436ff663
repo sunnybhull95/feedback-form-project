@@ -1,0 +1,44 @@
+package com.example.customerfeedbackform.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.customerfeedbackform.dto.AuthResponseDto;
+import com.example.customerfeedbackform.dto.LoginRequestDto;
+import com.example.customerfeedbackform.dto.RegistrationRequestDto;
+import com.example.customerfeedbackform.service.UserService;
+
+import jakarta.servlet.Registration;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+	
+	@Autowired
+	UserService service;
+	
+	@GetMapping("/")
+	public String greet() {
+		
+		return "hello";
+		
+	}
+	
+	@PostMapping("/register")
+	public AuthResponseDto register(@RequestBody RegistrationRequestDto dto) {
+		
+		return service.register(dto);
+		
+		
+	}
+	
+	   @PostMapping("/login")
+	    public AuthResponseDto login(@RequestBody LoginRequestDto dto) {
+	        return service.login(dto);
+	    }
+
+}

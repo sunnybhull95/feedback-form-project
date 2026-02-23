@@ -1,0 +1,11 @@
+package com.example.customerfeedbackform.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.customerfeedbackform.entity.FeedBackEntity;
+
+public interface FeedBackRepo extends JpaRepository<FeedBackEntity, Long> {
+	
+	Optional<Feedback> findByUserId(Long userId);
+
+}

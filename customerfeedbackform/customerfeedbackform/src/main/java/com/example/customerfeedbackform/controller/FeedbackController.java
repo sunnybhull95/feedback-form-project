@@ -1,0 +1,59 @@
+package com.example.customerfeedbackform.controller;
+
+import java.awt.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.customerfeedbackform.dto.AdminFeedbackDto;
+import com.example.customerfeedbackform.dto.FeedBackDto;
+import com.example.customerfeedbackform.service.FeedBackService;
+
+@RestController
+@RequestMapping("/feedback")
+public class FeedbackController {
+	
+	@Autowired
+	FeedBackService service;
+	
+    @PostMapping("/submit")
+    public String submitFeedback(@RequestBody FeedBackDto dto) {
+        return service.submitOrUpdateFeedback(dto);
+    }
+
+
+    @GetMapping("/user/{userId}")
+    public FeedBackDto getUserFeedback(@PathVariable Long userId) {
+        return service.getUserFeedback(userId);
+    }
+
+
+    @DeleteMapping("/admin/{feedbackId}")
+    public String deleteFeedback(@PathVariable Long feedbackId) {
+        return service.deleteFeedback(feedbackId);
+    }
+    
+    @GetMapping("/admin/all")
+    public java.util.List<AdminFeedbackDto> getAllFeedback() {
+        return service.getAllFeedbackForAdmin();
+    }
+    
+    @PutMapping("/admin/update/{id}")
+    public String adminUpdate(
+            @PathVariable Long id,
+            @RequestBody FeedBackDto dto) {
+
+        return service.adminUpdateFeedback(
+                id,
+                dto.getMessage(),
+                dto.getRating());
+    }	
+
+}

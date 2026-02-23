@@ -1,0 +1,13 @@
+package com.example.customerfeedbackform.service;
+
+import com.example.customerfeedbackform.dto.FeedBackDto;
+
+public interface FeedBackService {
+
+	String submitOrUpdateFeedback(FeedBackDto dto);
+
+	FeedBackDto getUserFeedback(Long userId);
+
+	String deleteFeedback(Long feedbackId);
+
+}

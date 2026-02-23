@@ -1,0 +1,16 @@
+package com.example.customerfeedbackform.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.customerfeedbackform.repo.UserRepo;
+
+import jakarta.websocket.server.ServerEndpoint;
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	UserRepo repo;
+
+}

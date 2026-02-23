@@ -1,0 +1,60 @@
+package com.example.customerfeedbackform.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.customerfeedbackform.repo.FeedBackRepo;
+import com.example.customerfeedbackform.repo.UserRepo;
+
+import ch.qos.logback.core.joran.spi.NoAutoStart;
+
+@Service
+public class FeedBackServiceImpl implements FeedBackService{
+	
+	
+	@Autowired
+	FeedBackRepo feedbackRepo;
+	
+	@Autowired
+	UserRepo userRepo;
+	
+	  @Override
+	    public String submitOrUpdateFeedback(FeedbackDto dto) {
+
+	        UserEntity user = userRepo.findById(dto.getUserId())
+	                .orElseThrow(() -> new RuntimeException("User not found"));
+
+	        Feedback feedback = feedbackRepo.findByUserId(dto.getUserId())
+	                .orElse(new Feedback());
+
+	        feedback.setUser(user);
+	        feedback.setMessage(dto.getMessage());
+	        feedback.setRating(dto.getRating());
+
+	        feedbackRepo.save(feedback);
+
+	        return "Feedback saved successfully";
+	    }
+
+	    @Override
+	    public FeedbackDto getUserFeedback(Long userId) {
+
+	        Feedback feedback = feedbackRepo.findByUserId(userId)
+	                .orElseThrow(() -> new RuntimeException("No feedback found"));
+
+	        FeedbackDto dto = new FeedbackDto();
+	        dto.setUserId(userId);
+	        dto.setMessage(feedback.getMessage());
+	        dto.setRating(feedback.getRating());
+
+	        return dto;
+	    }
+
+	    @Override
+	    public String deleteFeedback(Long feedbackId) {
+
+	        feedbackRepo.deleteById(feedbackId);
+	        return "Feedback deleted successfully";
+	    }
+
+}

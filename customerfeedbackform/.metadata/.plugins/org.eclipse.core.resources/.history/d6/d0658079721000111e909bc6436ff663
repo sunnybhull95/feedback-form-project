@@ -1,0 +1,5 @@
+package com.example.customerfeedbackform.dto;
+
+public class LoginRequestDto {
+
+}

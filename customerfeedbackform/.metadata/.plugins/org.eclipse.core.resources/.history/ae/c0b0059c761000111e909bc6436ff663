@@ -1,0 +1,55 @@
+package com.example.customerfeedbackform.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.customerfeedbackform.dto.AuthResponseDto;
+import com.example.customerfeedbackform.dto.LoginRequestDto;
+import com.example.customerfeedbackform.dto.RegistrationRequestDto;
+import com.example.customerfeedbackform.entity.UserEntity;
+import com.example.customerfeedbackform.repo.UserRepo;
+
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	UserRepo repo;
+
+	@Override
+	public AuthResponseDto register(RegistrationRequestDto dto) {
+
+
+		 if (repo.findByEmail(dto.getEmail()).isPresent()) {
+		        throw new RuntimeException("Email already exists");
+		    }
+
+		    UserEntity user = new UserEntity();
+		    user.setName(dto.getName());
+		    user.setEmail(dto.getEmail());
+		    user.setPassword(dto.getPassword());
+
+		    UserEntity savedUser = repo.save(user);
+
+		    AuthResponseDto response = new AuthResponseDto();
+		    response.setId(savedUser.getId());
+		    response.setName(savedUser.getName());
+		    response.setEmail(savedUser.getEmail());
+
+		    return response;
+		
+
+		
+		
+	
+	}
+
+	@Override
+	public AuthResponseDto login(LoginRequestDto dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,39 @@
+package com.example.customerfeedbackform.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.customerfeedbackform.dto.FeedBackDto;
+import com.example.customerfeedbackform.service.FeedBackService;
+
+@RestController
+@RequestMapping("/feedback")
+public class FeedbackController {
+	
+	@Autowired
+	FeedBackService service;
+	
+    @PostMapping("/submit")
+    public String submitFeedback(@RequestBody FeedBackDto dto) {
+        return service.submitOrUpdateFeedback(dto);
+    }
+
+
+    @GetMapping("/user/{userId}")
+    public FeedBackDto getUserFeedback(@PathVariable Long userId) {
+        return service.getUserFeedback(userId);
+    }
+
+
+    @DeleteMapping("/admin/{feedbackId}")
+    public String deleteFeedback(@PathVariable Long feedbackId) {
+        return service.deleteFeedback(feedbackId);
+    }
+
+}

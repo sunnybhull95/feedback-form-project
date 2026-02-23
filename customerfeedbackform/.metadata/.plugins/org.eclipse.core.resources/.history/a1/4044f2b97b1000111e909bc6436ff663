@@ -1,0 +1,89 @@
+package com.example.customerfeedbackform.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.customerfeedbackform.dto.AdminFeedbackDto;
+import com.example.customerfeedbackform.dto.FeedBackDto;
+import com.example.customerfeedbackform.entity.FeedBackEntity;
+import com.example.customerfeedbackform.entity.UserEntity;
+import com.example.customerfeedbackform.repo.FeedBackRepo;
+import com.example.customerfeedbackform.repo.UserRepo;
+
+
+@Service
+public class FeedBackServiceImpl implements FeedBackService{
+	
+	
+	@Autowired
+	FeedBackRepo feedbackRepo;
+	
+	@Autowired
+	UserRepo userRepo;
+	
+	  @Override
+	    public String submitOrUpdateFeedback(FeedBackDto dto) {
+
+	        UserEntity user = userRepo.findById(dto.getUserId())
+	                .orElseThrow(() -> new RuntimeException("User not found"));
+
+	        FeedBackEntity feedback = feedbackRepo.findByUserId(dto.getUserId())
+	                .orElse(new FeedBackEntity());
+
+	        feedback.setUser(user);
+	        feedback.setMessage(dto.getMessage());
+	        feedback.setRating(dto.getRating());
+
+	        feedbackRepo.save(feedback);
+
+	        return "Feedback saved successfully";
+	    }
+
+	    @Override
+	    public FeedBackDto getUserFeedback(Long userId) {
+
+	        FeedBackEntity feedback = feedbackRepo.findByUserId(userId)
+	                .orElseThrow(() -> new RuntimeException("No feedback found"));
+
+	        FeedBackDto dto = new FeedBackDto();
+	        dto.setUserId(userId);
+	        dto.setMessage(feedback.getMessage());
+	        dto.setRating(feedback.getRating());
+
+	        return dto;
+	    }
+
+	    @Override
+	    public String deleteFeedback(Long feedbackId) {
+
+	        feedbackRepo.deleteById(feedbackId);
+	        return "Feedback deleted successfully";
+	    }
+
+		@Override
+		public List<AdminFeedbackDto> getAllFeedbackForAdmin() {
+			 List<FeedBackEntity> feedbackList = feedbackRepo.findAll();
+
+			    List<AdminFeedbackDto> dtoList = new ArrayList()<>();
+
+			    for (FeedBackEntity feedback : feedbackList) {
+
+			        AdminFeedbackDto dto = new AdminFeedbackDto();
+			        dto.setFeedbackId(feedback.getId());
+			        dto.setUserName(feedback.getUser().getName());
+			        dto.setMessage(feedback.getMessage());
+			        dto.setRating(feedback.getRating());
+			        dto.setCreatedAt(feedback.getCreatedAt());
+			        dto.setUpdatedAt(feedback.getUpdatedAt());
+
+			        dtoList.add(dto);
+			    }
+
+			    return dtoList;
+			
+		}
+
+}

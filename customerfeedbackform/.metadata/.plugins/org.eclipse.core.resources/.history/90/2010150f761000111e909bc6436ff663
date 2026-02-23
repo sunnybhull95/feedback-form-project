@@ -1,0 +1,10 @@
+package com.example.customerfeedbackform.service;
+
+import com.example.customerfeedbackform.dto.AuthResponseDto;
+import com.example.customerfeedbackform.dto.LoginRequestDto;
+
+public interface UserService {
+
+	AuthResponseDto login(LoginRequestDto dto);
+
+}

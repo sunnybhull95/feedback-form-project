@@ -1,0 +1,18 @@
+package com.example.customerfeedbackform.service;
+
+import java.util.List;
+
+import com.example.customerfeedbackform.dto.AdminFeedbackDto;
+import com.example.customerfeedbackform.dto.FeedBackDto;
+
+public interface FeedBackService {
+
+	String submitOrUpdateFeedback(FeedBackDto dto);
+
+	FeedBackDto getUserFeedback(Long userId);
+
+	String deleteFeedback(Long feedbackId);
+
+	List<AdminFeedbackDto> getAllFeedbackForAdmin();
+
+}

@@ -1,0 +1,21 @@
+package com.example.customerfeedbackform.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.customerfeedbackform.repo.FeedBackRepo;
+import com.example.customerfeedbackform.repo.UserRepo;
+
+import ch.qos.logback.core.joran.spi.NoAutoStart;
+
+@Service
+public class FeedBackServiceImpl implements FeedBackService{
+	
+	
+	@Autowired
+	FeedBackRepo feedbackrepo;
+	
+	@Autowired
+	UserRepo userrepo;
+
+}

@@ -1,0 +1,8 @@
+package com.example.customerfeedbackform.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class FeedBackServiceImpl implements FeedBackService{
+
+}

@@ -1,0 +1,36 @@
+package com.example.customerfeedbackform.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.customerfeedbackform.dto.AuthResponseDto;
+import com.example.customerfeedbackform.dto.LoginRequestDto;
+import com.example.customerfeedbackform.entity.UserEntity;
+import com.example.customerfeedbackform.repo.UserRepo;
+
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	UserRepo repo;
+
+	@Override
+	public AuthResponseDto login(LoginRequestDto dto) {
+		
+		UserEntity user = repo.findByEmail(dto.getEmail())
+		        .orElseThrow(() -> new RuntimeException("User not found"));
+
+		if (!user.getPassword().equals(dto.getPassword())) {
+		    throw new RuntimeException("Invalid password");
+		}
+		
+
+		
+		
+		return null;
+	}
+
+}
