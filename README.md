@@ -37,4 +37,3 @@ feedback-form-project/
 1. Start MySQL server
 2. Run Spring Boot backend
 3. Run React frontend (npm run dev)
-4. Open http://localhost:5173
