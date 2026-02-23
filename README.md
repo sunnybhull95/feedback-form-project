@@ -8,7 +8,7 @@ Frontend:
 - React
 - Vite
 - Axios
-- Tailwind CSS (if used)
+- Tailwind CSS 
 
 Backend:
 - Spring Boot
