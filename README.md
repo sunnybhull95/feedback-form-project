@@ -8,6 +8,7 @@ Frontend:
 - React
 - Vite
 - Axios
+- React-Router-Dom
 - Tailwind CSS 
 
 Backend:
@@ -20,6 +21,7 @@ Database:
 
 ## ⚙️ Features
 - Submit feedback (Name, Email, Message)
+- Admin dashboard
 - Store feedback in MySQL database
 - REST API integration
 - Cross-Origin configuration
@@ -36,4 +38,4 @@ feedback-form-project/
 
 1. Start MySQL server
 2. Run Spring Boot backend
-3. Run React frontend (npm run dev)
+3. Run React+vite frontend (npm run dev)
